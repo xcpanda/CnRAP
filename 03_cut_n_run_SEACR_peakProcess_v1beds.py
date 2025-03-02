@@ -53,14 +53,14 @@ for sample_counter in range(len(normalized_nuclear_beds)):
 	output_script.write(output_command)
 	output_script.write("\n")
 	# sort the bedgraph to allow converstion ot bigwig
-	output_command = "sort -k1,1 -k2,2n " +normalized_nuclear_beds[sample_counter]+ "graph > " +normalized_nuclear_beds[sample_counter].split("/")[8][:-3]+ "sorted.bed"
+	output_command = "sort -k1,1 -k2,2n " +normalized_nuclear_beds[sample_counter]+ "graph > " +normalized_nuclear_beds[sample_counter].split("/")[-1][:-3]+ "sorted.bed"
 	output_script.write(output_command)
 	output_script.write("\n")
-	output_command = "mv " +normalized_nuclear_beds[sample_counter].split("/")[8][:-3]+ "sorted.bed " +normalized_nuclear_beds[sample_counter]+ "graph"
+	output_command = "mv " +normalized_nuclear_beds[sample_counter].split("/")[-1][:-3]+ "sorted.bed " +normalized_nuclear_beds[sample_counter]+ "graph"
 	output_script.write(output_command)
 	output_script.write("\n")
 	# bedgrah to bw
-	output_command = "bedGraphToBigWig " +normalized_nuclear_beds[sample_counter]+ "graph " +chrom_sizes_txt+ " " +normalized_nuclear_beds[sample_counter].split("/")[8][:-2]+ "w"
+	output_command = "bedGraphToBigWig " +normalized_nuclear_beds[sample_counter]+ "graph " +chrom_sizes_txt+ " " +normalized_nuclear_beds[sample_counter].split("/")[-1][:-2]+ "w"
 	output_script.write(output_command)
 	output_script.write("\n")
 		# remove bedgraph
@@ -74,14 +74,14 @@ for sample_counter in range(len(normalized_regular_beds)):
 	output_script.write(output_command)
 	output_script.write("\n")
 	# sort the bedgraph to allow converstion ot bigwig
-	output_command = "sort -k1,1 -k2,2n " +normalized_regular_beds[sample_counter]+ "graph > " +normalized_regular_beds[sample_counter].split("/")[8][:-3]+ "sorted.bed"
+	output_command = "sort -k1,1 -k2,2n " +normalized_regular_beds[sample_counter]+ "graph > " +normalized_regular_beds[sample_counter].split("/")[-1][:-3]+ "sorted.bed"
 	output_script.write(output_command)
 	output_script.write("\n")
-	output_command = "mv " +normalized_regular_beds[sample_counter].split("/")[8][:-3]+ "sorted.bed " +normalized_regular_beds[sample_counter]+ "graph"
+	output_command = "mv " +normalized_regular_beds[sample_counter].split("/")[-1][:-3]+ "sorted.bed " +normalized_regular_beds[sample_counter]+ "graph"
 	output_script.write(output_command)
 	output_script.write("\n")
 	# bedgraph to bw
-	output_command = "bedGraphToBigWig " +normalized_regular_beds[sample_counter]+ "graph " +chrom_sizes_txt+ " " +normalized_regular_beds[sample_counter].split("/")[8][:-2]+ "w"
+	output_command = "bedGraphToBigWig " +normalized_regular_beds[sample_counter]+ "graph " +chrom_sizes_txt+ " " +normalized_regular_beds[sample_counter].split("/")[-1][:-2]+ "w"
 	output_script.write(output_command)
 	output_script.write("\n")
 	# remove bedgraph
@@ -103,8 +103,8 @@ for sample_counter in range(len(normalized_nuclear_beds)-1):
 	output_script.write(output_command)
 	output_script.write("\n")
 	# pull out the name of the current data file so as to include it as the output prefix
-	current_name = normalized_nuclear_beds[sample_counter].split("/")[8].split("_")[0:3]
-	current_name.append("relaxed")
+	current_name = normalized_nuclear_beds[sample_counter].split("/")[-1].split("_")[0:3]
+	# current_name.append("relaxed")
 	current_name_string = "_".join(current_name)
 	# call SEACR
 	output_command = "bash " +seacr_location+ " " +normalized_nuclear_beds[sample_counter]+ " " +normalized_nuclear_beds[2]+ " non relaxed " +current_name_string
@@ -120,8 +120,8 @@ for sample_counter in range(len(normalized_nuclear_beds)-1):
 	output_script.write(output_command)
 	output_script.write("\n")
 	# pull out the name of the current data file so as to include it as the output prefix
-	current_name = normalized_nuclear_beds[sample_counter].split("/")[8].split("_")[0:3]
-	current_name.append("stringent")
+	current_name = normalized_nuclear_beds[sample_counter].split("/")[-1].split("_")[0:3]
+	# current_name.append("stringent")
 	current_name_string = "_".join(current_name)
 	# call SEACR
 	output_command = "bash " +seacr_location+ " " +normalized_nuclear_beds[sample_counter]+ " " +normalized_nuclear_beds[2]+ " non stringent " +current_name_string
@@ -137,8 +137,8 @@ for sample_counter in range(len(normalized_regular_beds)-1):
 	output_script.write(output_command)
 	output_script.write("\n")
 	# pull out the name of the current data file so as to include it as the output prefix
-	current_name = normalized_regular_beds[sample_counter].split("/")[8].split("_")[0:3]
-	current_name.append("relaxed")
+	current_name = normalized_regular_beds[sample_counter].split("/")[-1].split("_")[0:3]
+	# current_name.append("relaxed")
 	current_name_string = "_".join(current_name)
 	# call SEACR
 	output_command = "bash " +seacr_location+ " " +normalized_regular_beds[sample_counter]+ " " +normalized_regular_beds[2]+ " non relaxed " +current_name_string
@@ -154,8 +154,8 @@ for sample_counter in range(len(normalized_regular_beds)-1):
 	output_script.write(output_command)
 	output_script.write("\n")
 	# pull out the name of the current data file so as to include it as the output prefix
-	current_name = normalized_regular_beds[sample_counter].split("/")[8].split("_")[0:3]
-	current_name.append("stringent")
+	current_name = normalized_regular_beds[sample_counter].split("/")[-1].split("_")[0:3]
+	# current_name.append("stringent")
 	current_name_string = "_".join(current_name)
 	# call SEACR
 	output_command = "bash " +seacr_location+ " " +normalized_regular_beds[sample_counter]+ " " +normalized_regular_beds[2]+ " non stringent " +current_name_string
@@ -164,32 +164,70 @@ for sample_counter in range(len(normalized_regular_beds)-1):
 
 output_script.write("\n\n")
 
-# pull out the called peak files
-called_peak_beds = []
-for file_name in listdir():
-	if file_name.endswith("bed"):
-		called_peak_beds.append(output_folder+ "/" +file_name)
-# sort alphabetically
-called_peak_beds.sort()
 
+
+if len(normalized_nuclear_beds) == 1:
+  # update the user on whats happening
+  output_command = "echo \"Calling SEACR WITHOUT Control data - Relaxed!\""
+  output_script.write(output_command)
+  output_script.write("\n")
+  # pull out the name of the current data file so as to include it as the output prefix
+  current_name = normalized_nuclear_beds[0].split("/")[-1].split("_")[0:3]
+  # current_name.append("relaxed")
+  current_name_string = "_".join(current_name)
+  # call SEACR
+  output_command = "bash " +seacr_location+ " " +normalized_nuclear_beds[0]+ " 1 " + " non relaxed " +current_name_string
+  output_script.write(output_command)
+  output_script.write("\n\n")
+
+  # update the user on whats happening
+  output_command = "echo \"Calling SEACR WITHOUT Control data - Stringent!\""
+  output_script.write(output_command)
+  output_script.write("\n")
+  # pull out the name of the current data file so as to include it as the output prefix
+  current_name = normalized_nuclear_beds[0].split("/")[-1].split("_")[0:3]
+  # current_name.append("stringent")
+  current_name_string = "_".join(current_name)
+  # call SEACR
+  output_command = "bash " +seacr_location+ " " +normalized_nuclear_beds[0]+ " 1 " + " non stringent " +current_name_string
+  output_script.write(output_command)
+  output_script.write("\n\n")
+
+
+# # pull out the called peak files
+# called_peak_beds = []
+# for file_name in listdir():
+# 	if file_name.endswith("bed"):
+# 		called_peak_beds.append(output_folder+ "/" +file_name)
+# # sort alphabetically
+# called_peak_beds.sort()
+
+# # for each file re-arrange to make in the same format as macs to allow annotation script to run
+# for sample_counter in range(len(called_peak_beds)):
+# 	# call SEACR
+# 	output_command = "awk \'{print $1\"\\t\"$2\"\\t\"$3\"\\t\"$6\"\\t\"$5\"\\t\"$4}\' " +called_peak_beds[sample_counter]+ " > " +called_peak_beds[sample_counter][:-3]+ "rearrangedCols.bed"
+# 	output_script.write(output_command)
+# 	output_script.write("\n")
+
+### EDITED BY XCPANDA ###
+output_script.write(f"for bed_file in `ls {output_folder}/*.bed`; do\n")
 # for each file re-arrange to make in the same format as macs to allow annotation script to run
-for sample_counter in range(len(called_peak_beds)):
-	# call SEACR
-	output_command = "awk \'{print $1\"\\t\"$2\"\\t\"$3\"\\t\"$6\"\\t\"$5\"\\t\"$4}\' " +called_peak_beds[sample_counter]+ " > " +called_peak_beds[sample_counter][:-3]+ "rearrangedCols.bed"
-	output_script.write(output_command)
-	output_script.write("\n")
+output_script.write('    awk \'{print $1"\\t"$2"\\t"$3"\\t"$6"\\t"$5"\\t"$4}\' "$bed_file" > "${bed_file%.bed}.rearrangedCols.bed"\n\n')
+# for each file re-arrange to make in the format for Homer to call peaks
+output_script.write('    awk \'{print $4"\\t"$1"\\t"$2"\\t"$3"\\t+"}\' "$bed_file" > "${bed_file%.bed}.homerMotif.bed"\n')
+output_script.write("done\n\n")
 
-output_script.write("\n\n\n")
+output_script.write("\n\n\n")                         
 
 # for each file re-arrange to make in the format for Homer to call peaks
 for sample_counter in range(len(called_peak_beds)):
 	# call SEACR
 	output_command = "awk \'{print $4\"\\t\"$1\"\\t\"$2\"\\t\"$3\"\\t+\"}\' " +called_peak_beds[sample_counter]+ " > " +called_peak_beds[sample_counter][:-3]+ "homerMotif.bed"
 	output_script.write(output_command)
-	output_script.write("\n")
+	output_script.write("\n") 
 
 # close the script file
-output_script.close()
+output_script.close() 
 
 # make script executable
 os.system("chmod +x " +script_name)
